@@ -1,0 +1,6 @@
+dataclass-wizard
+opencv
+scikit-image
+scipy
+pandas
+tqdm

@@ -1,0 +1,28 @@
+,recall,precision,IoU
+Ewa,0.0,,0.0
+Klara,0.97,0.73,0.71
+Alejandra,0.95,0.6,0.59
+Alessandro,0.94,0.79,0.75
+Anastasia ,0.41,0.41,0.26
+Andrea Ran ,0.91,0.67,0.63
+Anna,0.93,0.78,0.73
+Daiane,0.99,0.59,0.58
+Diego,0.8,0.81,0.68
+Fernanda,0.95,0.71,0.69
+Gabriel,0.41,0.68,0.34
+Gu╠êlten C╠ºay─▒rc─▒,0.83,0.55,0.49
+Juliana,0.98,0.86,0.85
+Kasia,0.71,0.9,0.65
+Kateryna,0.93,0.83,0.78
+Luis ,0.0,,0.0
+Massimiliano ,0.77,0.65,0.54
+Matheus ,0.55,0.68,0.44
+Miia,0.94,0.69,0.66
+Mykhailo,0.65,0.89,0.6
+Paolo,0.0,,0.0
+Rayanne,0.99,0.73,0.73
+Ro╠émulo,0.48,0.5,0.33
+Valeriia ,0.91,0.62,0.58
+Vitalijs,0.87,0.83,0.74
+Weslley,0.65,0.71,0.51
+mean,0.71,0.7,0.53

@@ -1,0 +1,6 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/cheatsheets.json": "file:///mnt/external/storage/Projects/resume/wallmart/conf.yaml"
+    },
+    "python.formatting.provider": "black"
+}

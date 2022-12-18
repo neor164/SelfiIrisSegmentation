@@ -1,0 +1,29 @@
+alpha: 0.8
+data-dir: gt/images
+debug: true
+detection:
+  detector: haar
+  minimum-height: 30
+ground-truth-dir: gt/annotations
+output-dir: out
+segmentation:
+  daugman:
+    force-square: true
+    max-radius-ratio: 0.3
+    min-radius-pixels: 30
+    min-radius-ratio: 0.1
+    points-step: 3
+    radius-step: 1
+    reduce-points: false
+  flood-fill:
+    n-iter: 10
+    probable-background-radius: 1.5
+    probable-foreground-radius: 1.0
+    sure-foreground-radius: 0.5
+  image-enhancement:
+    felzenszwalb: false
+    gaussian-kernel-size: 5
+    glare-threshold: 220
+    kmeans-iters: 20
+    median-kernel-size: 7
+    refined: true

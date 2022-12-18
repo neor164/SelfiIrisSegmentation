@@ -1,0 +1,60 @@
+# flag that dictates whether or not to save data for evaluation 
+debug: True
+# the directory to save the results
+output_dir: "out"
+# the directory that holds the ground truth annotations
+ground_truth_dir: "gt/annotations"
+# the directory that holds the raw images 
+data_dir: "gt/images"
+# value for blending the mask with the image,
+# a higher value means the mask will be more pronounced, the alpha value range: 0<=alpha<=1 
+alpha: 0.8
+
+# the run name string, if null the run name will be derived from the date and time.
+run_name: "dlib"
+
+
+segmentation:
+  image_enhancement:
+    # whether to segment the eye image before the daugman algorithm using felzenszwalb algorithm
+    felzenszwalb: False 
+    # whether to clean the eye image before the daugman algorithm
+    refined: True
+    median_kernel_size: 7
+    gaussian_kernel_size: 5
+    # number kmeans iterations
+    kmeans_iters: 20
+    glare_threshold: 220
+
+  daugman:
+    # minimum iris height ratio radius for daugman search
+    min_radius_ratio: 0.6
+    # maximum iris height ratio radius for daugman search 
+    max_radius_ratio: 0.8
+    # minimum iris radius for maximum radius daugman search in pixels
+    min_radius_pixels: 30
+    # step value for iris radii range in pixels
+    radius_step: 1
+    # step value for iris coordinates range in pixels
+    points_step: 3
+    # whether to use k-means to reduce the number of search point for daugman
+    # recommended pair with the dlib detector
+    reduce_points: True
+    # whether to force the eye patch to be square]
+    force_square: True
+
+  flood_fill:
+    # the daugman radius ratio that have high probability for belonging to the subject eye usually smaller
+    sure_foreground_radius: 0.5 
+    # the daugman radius ratio that have high probability for belonging to the subject eye usually smaller
+    probable_foreground_radius: 1
+    # the daugman radius ratio that have high probability for belonging to the subject eye usually smaller
+    probable_background_radius: 1.5 
+    # number of iteration to run on the segmentation model
+    n_iter: 10
+
+detection:
+  # you may choose between opencv/dlib though dlib has higher performance
+  detector: "dlib"
+  # the eye bounding box height to be considered a valid detection
+  minimum_height: 30 
