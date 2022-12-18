@@ -1,6 +1,9 @@
 dataclass-wizard
-opencv
+dataclass-wizard[yaml]
+opencv-python
 scikit-image
 scipy
 pandas
 tqdm
+dlib
+numpy

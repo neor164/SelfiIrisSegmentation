@@ -5,13 +5,13 @@ output_dir: "out"
 # the directory that holds the ground truth annotations
 ground_truth_dir: "gt/annotations"
 # the directory that holds the raw images 
-data_dir: "gt/images"
+data_dir: "data"
 # value for blending the mask with the image,
 # a higher value means the mask will be more pronounced, the alpha value range: 0<=alpha<=1 
 alpha: 0.8
 
 # the run name string, if null the run name will be derived from the date and time.
-run_name: "dlib"
+run_name: null
 
 
 segmentation:

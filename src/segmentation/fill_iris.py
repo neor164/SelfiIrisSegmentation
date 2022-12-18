@@ -2,7 +2,6 @@ from typing import Tuple
 from numpy import ndarray
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 from .seg_utils import alpha_blend_image
 from config import FloodFill
 

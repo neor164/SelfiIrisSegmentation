@@ -1,5 +1,5 @@
 alpha: 0.8
-data-dir: gt/images
+data-dir: data
 debug: true
 detection:
   detector: dlib

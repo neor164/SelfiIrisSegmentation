@@ -10,9 +10,9 @@ import os.path as osp
 import numpy as np
 from glob import glob
 from config import Config
-from opts import parser
 from datetime import datetime
 from tqdm import tqdm
+import sys
 
 def main(config:Config):
     now = datetime.now()
@@ -77,7 +77,9 @@ def main(config:Config):
 
 
 if __name__ == "__main__":
-    args = parser.parse_args()
-    config_path = args.configuration_file_path
+    output_dir = 'data'
+    config_path = 'config.yaml'
+    if len(sys.argv) > 1:
+        config_path = sys.argv[1]
     config = Config.from_yaml_file(config_path)
     main(config)
