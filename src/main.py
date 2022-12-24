@@ -3,6 +3,8 @@ from pathlib import Path
 from detection.haarcascade_eye import HaarCascadeEye
 from detection.dlib_detector import DlibDetector
 from segmentation.daugman import Daugman
+from segmentation.unet_model import IrisUnet
+
 from segmentation.seg_utils import  alpha_blend_image,clean_gray_image
 from segmentation.fill_iris import  flood_fill
 from evaluation import evaluate_results
@@ -17,7 +19,11 @@ import sys
 def main(config:Config):
     now = datetime.now()
     detector = DlibDetector(config.detection) if config.detection.detector == "dlib" else HaarCascadeEye(config.detection)
-    segmentor = Daugman(config.segmentation)
+    # segmentor = Daugman(config.segmentation)
+    if config.segmentation.segmentor == "unet":
+        segmentor = IrisUnet(config.segmentation.model_path)
+    else:
+        segmentor = Daugman(config.segmentation)
     run_name_dir = now.strftime("%m-%d-%Y_%H-%M") if config.run_name is None else config.run_name
     pattern = osp.join(config.data_dir, '*.jpg')
     images_paths = glob(pattern)
@@ -46,6 +52,7 @@ def main(config:Config):
             xc = 0
             for i , eye_bb in enumerate(ans):
                 iris_data = segmentor.segment(image, eye_bb)
+                # iris_data = segmentor()
                 if iris_data is None:
                     continue
                 new_cropped_image = alpha_blend_image(iris_data.patch_im, iris_data.mask,alpha=config.alpha)
@@ -53,14 +60,14 @@ def main(config:Config):
                 blend_im[y:y+h,x:x+w] = new_cropped_image
                 mask[y:y+h,x:x+w] = iris_data.mask 
                 if config.debug:
-                    daugman_data = iris_data.daugman_data
-                    center_point = daugman_data.x_center , daugman_data.y_center                    
-                    wc = daugman_data.enhanced_patch.shape[1]*2
-                    hc = daugman_data.enhanced_patch.shape[0]*2
-                    cv2.circle(debug_im,center_point , daugman_data.radius, (0,255,0), 3)
+                    # daugman_data = iris_data.daugman_data
+                    # center_point = daugman_data.x_center , daugman_data.y_center                    
+                    wc = iris_data.patch_im.shape[1]*2
+                    hc = iris_data.patch_im.shape[0]*2
+                    # cv2.circle(debug_im,center_point , daugman_data.radius, (0,255,0), 3)
                     cv2.rectangle(debug_im, (x,y), (x+w,y+h), (255,0,), 3)
                     debug_im[y:y+h,x:x+w] = new_cropped_image
-                    new_gray = cv2.resize(daugman_data.enhanced_patch, (wc,hc))
+                    new_gray = cv2.resize(cv2.cvtColor(iris_data.patch_im, cv2.COLOR_BGR2GRAY), (wc,hc))
                     debug_im[yc:yc+hc,xc:xc+wc] =  np.stack((new_gray,)*3, axis=-1)
                     xc = wc
                     

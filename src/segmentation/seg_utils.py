@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Optional, Tuple
 import numpy as np
 
 import cv2
@@ -22,7 +22,7 @@ class DaugmanData:
 
 @dataclass
 class IrisData:
-    daugman_data:DaugmanData
+    daugman_data:Optional[DaugmanData]
     patch_bounding_box:Tuple[int,int,int,int]
     patch_im:np.ndarray
     mask:np.ndarray
@@ -79,7 +79,7 @@ def clean_gray_image(img:np.ndarray, config:ImageEnhancement) -> np.ndarray:
 
 
 
-def alpha_blend_image(image:np.ndarray,mask:np.ndarray, alpha:float=0.8)->np.ndarray:
+def alpha_blend_image(image:np.ndarray,mask:np.ndarray, alpha:float=0.8, thresh=75)->np.ndarray:
     new_image = image.copy()
-    new_image[:,:,2][mask!=0] = image[:,:,2][mask!=0] *(1 - alpha) + mask[mask!=0] * (alpha) 
+    new_image[:,:,2][mask>thresh] = image[:,:,2][mask>thresh] *(1 - alpha) + mask[mask>thresh] * (alpha) 
     return new_image

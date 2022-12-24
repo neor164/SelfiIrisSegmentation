@@ -30,6 +30,8 @@ class Daugman:
 
 @dataclass 
 class Segmentation:
+    segmentor:str
+    model_path:str
     image_enhancement:ImageEnhancement
     daugman:Daugman
     flood_fill:FloodFill
