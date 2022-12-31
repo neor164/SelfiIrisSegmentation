@@ -41,6 +41,7 @@ def main(config:Config):
     Path(out_blend_path).mkdir(parents=True,exist_ok=True)
     for img_path in tqdm(images_paths):
         img_name = osp.basename(img_path)
+        subject_name = img_name.split('_')[1]
         image = cv2.imread(img_path)
         blend_im = image.copy()
         if config.debug:
@@ -51,12 +52,20 @@ def main(config:Config):
             yc = 0
             xc = 0
             for i , eye_bb in enumerate(ans):
+
                 iris_data = segmentor.segment(image, eye_bb)
                 # iris_data = segmentor()
                 if iris_data is None:
                     continue
                 new_cropped_image = alpha_blend_image(iris_data.patch_im, iris_data.mask,alpha=config.alpha)
                 x,y ,w ,h = iris_data.patch_bounding_box
+                out_path = osp.join(config.output_dir,run_name_dir, f'eye{i}_{subject_name}.png')
+                cv2.imwrite(out_path,iris_data.patch_im)
+                out_path = osp.join(config.output_dir,run_name_dir, f'mask{i}_{subject_name}.png')
+                cv2.imwrite(out_path,iris_data.mask )
+
+
+                # cv2.imwrite(out_path,mask)
                 blend_im[y:y+h,x:x+w] = new_cropped_image
                 mask[y:y+h,x:x+w] = iris_data.mask 
                 if config.debug:
@@ -66,9 +75,9 @@ def main(config:Config):
                     hc = iris_data.patch_im.shape[0]*2
                     # cv2.circle(debug_im,center_point , daugman_data.radius, (0,255,0), 3)
                     cv2.rectangle(debug_im, (x,y), (x+w,y+h), (255,0,), 3)
-                    debug_im[y:y+h,x:x+w] = new_cropped_image
+                    # debug_im[y:y+h,x:x+w] = new_cropped_image
                     new_gray = cv2.resize(cv2.cvtColor(iris_data.patch_im, cv2.COLOR_BGR2GRAY), (wc,hc))
-                    debug_im[yc:yc+hc,xc:xc+wc] =  np.stack((new_gray,)*3, axis=-1)
+                    # debug_im[yc:yc+hc,xc:xc+wc] =  np.stack((new_gray,)*3, axis=-1)
                     xc = wc
                     
         out_path = osp.join(out_blend_path, img_name)

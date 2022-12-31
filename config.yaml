@@ -16,7 +16,7 @@ run_name: null
 
 segmentation:
   segmentor: "unet"
-  model_path: "checkpoints/checkpoint_epoch5.pth"
+  model_path: "/mnt/external/storage/Projects/resume/wallmart/checkpoints//checkpoint_epoch5.pth"
   image_enhancement:
     # whether to segment the eye image before the daugman algorithm using felzenszwalb algorithm
     felzenszwalb: False 
