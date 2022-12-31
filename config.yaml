@@ -5,7 +5,7 @@ output_dir: "out"
 # the directory that holds the ground truth annotations
 ground_truth_dir: "gt/annotations"
 # the directory that holds the raw images 
-data_dir: "/mnt/external/storage/Projects/resume/wallmart/eval/"
+data_dir: "data/"
 # value for blending the mask with the image,
 # a higher value means the mask will be more pronounced, the alpha value range: 0<=alpha<=1 
 alpha: 0.8
