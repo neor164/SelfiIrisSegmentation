@@ -4,6 +4,7 @@ from detection.haarcascade_eye import HaarCascadeEye
 from detection.dlib_detector import DlibDetector
 from segmentation.daugman import Daugman
 from segmentation.unet_model import IrisUnet
+from segmentation.light_iris import LightIris
 
 from segmentation.seg_utils import  alpha_blend_image,clean_gray_image
 from segmentation.fill_iris import  flood_fill
@@ -22,6 +23,9 @@ def main(config:Config):
     # segmentor = Daugman(config.segmentation)
     if config.segmentation.segmentor == "unet":
         segmentor = IrisUnet(config.segmentation.model_path)
+    elif config.segmentation.segmentor == "light_iris":
+        # segmentor = IrisUnet(config.segmentation.model_path)
+        segmentor = LightIris(config.segmentation.model_path)
     else:
         segmentor = Daugman(config.segmentation)
     run_name_dir = now.strftime("%m-%d-%Y_%H-%M") if config.run_name is None else config.run_name

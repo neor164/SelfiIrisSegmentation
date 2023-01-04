@@ -90,8 +90,6 @@ the metrics that I'm interested in are:
 
 ## Results:
 
-
-
 [opencv](out/opencv_haar/debug/evaluation/results.csv)
 
 [dlib](out/dlib/debug/evaluation/results.csv)
